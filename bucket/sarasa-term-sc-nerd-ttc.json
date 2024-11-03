@@ -3,8 +3,8 @@
     "description": "简体中文终端更纱黑体+Nerd图标字体库，中英文宽度2:1，图标长宽经过调整，不会出现对齐问题，适合作为终端字体",
     "homepage": "https://github.com/mzr1996/Sarasa-Term-SC-Nerd",
     "license": "OFL-1.1",
-    "url": "https://gh.llkk.cc/https://github.com/mzr1996/Sarasa-Term-SC-Nerd/releases/download/v1.2.0/sarasa-term-sc-nerd.ttf.7z",
-    "hash": "68130fbd0526109d3d2ff5e0953bca91c8a619c26d2e528f6172de8a6d2f3667",
+    "url": "https://gh.llkk.cc/https://github.com/mzr1996/Sarasa-Term-SC-Nerd/releases/download/v1.2.0/sarasa-term-sc-nerd.ttc.7z",
+    "hash": "d6f954ddc10cedbfb3f956e6b21a979ffdf855db52e339753e4e68418979a8ac",
     "installer": {
         "script": [
             "$currentBuildNumber = [int] (Get-ItemProperty \"HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\").CurrentBuildNumber",
@@ -37,7 +37,7 @@
             "}",
             "$registryRoot = if ($global) { \"HKLM\" } else { \"HKCU\" }",
             "$registryKey = \"${registryRoot}:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\"",
-            "Get-ChildItem $dir -Filter '*NerdFont-*' | ForEach-Object {",
+            "Get-ChildItem $dir -Filter '*NerdFont*' | ForEach-Object {",
             "    $value = if ($global) { $_.Name } else { \"$fontInstallDir\\$($_.Name)\" }",
             "    New-ItemProperty -Path $registryKey -Name $_.Name.Replace($_.Extension, ' (TrueType)') -Value $value -Force | Out-Null",
             "    Copy-Item -LiteralPath $_.FullName -Destination $fontInstallDir",
@@ -46,7 +46,7 @@
     },
     "pre_uninstall": [
         "$fontInstallDir = if ($global) { \"$env:windir\\Fonts\" } else { \"$env:LOCALAPPDATA\\Microsoft\\Windows\\Fonts\" }",
-        "Get-ChildItem $dir -Filter '*NerdFont-*' | ForEach-Object {",
+        "Get-ChildItem $dir -Filter '*NerdFont*' | ForEach-Object {",
         "    Get-ChildItem $fontInstallDir -Filter $_.Name | ForEach-Object {",
         "        try {",
         "            Rename-Item $_.FullName $_.FullName -ErrorVariable LockError -ErrorAction Stop",
@@ -76,7 +76,7 @@
             "$fontInstallDir = if ($global) { \"$env:windir\\Fonts\" } else { \"$env:LOCALAPPDATA\\Microsoft\\Windows\\Fonts\" }",
             "$registryRoot = if ($global) { \"HKLM\" } else { \"HKCU\" }",
             "$registryKey = \"${registryRoot}:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\"",
-            "Get-ChildItem $dir -Filter '*NerdFont-*' | ForEach-Object {",
+            "Get-ChildItem $dir -Filter '*NerdFont*' | ForEach-Object {",
             "    Remove-ItemProperty -Path $registryKey -Name $_.Name.Replace($_.Extension, ' (TrueType)') -Force -ErrorAction SilentlyContinue",
             "    Remove-Item \"$fontInstallDir\\$($_.Name)\" -Force -ErrorAction SilentlyContinue",
             "}",
@@ -87,6 +87,6 @@
     },
     "checkver": "github",
     "autoupdate": {
-        "url": "https://gh.llkk.cc/https://github.com/mzr1996/Sarasa-Term-SC-Nerd/releases/download/v1.2.0/sarasa-term-sc-nerd.ttf.7z"
+        "url": "https://gh.llkk.cc/https://github.com/mzr1996/Sarasa-Term-SC-Nerd/releases/download/v1.2.0/sarasa-term-sc-nerd.ttc.7z"
     }
 }
